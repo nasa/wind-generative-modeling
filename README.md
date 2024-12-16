@@ -1,93 +1,71 @@
-# wind-generative-modeling
+# Wind Diffusion Modeling
 
+![](images/2022-04-25.gif)
 
+*An animation of a single day of sodar sensor readings (taken in 2 minute intervals) with their corresponding macroweather forecast.*
 
-## Getting started
+## Abstract
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Motivated by the pursuit of safe, reliable, and weather-tolerant urban air mobility (UAM) solutions, this work proposes a generative modeling approach for characterizing microweather wind velocities. 
+Microweather, or the weather conditions in highly localized areas, is particularly complex in urban environments owing to the chaotic and turbulent nature of wind flows. 
+Furthermore, traditional means of assessing local wind fields are not generally viable solutions for UAM applications: 1) field measurements that would rely on permanent wind profiling systems in operational air space are not practical, 2) physics-based models that simulate fluid dynamics at a sufficiently high resolution are not computationally tractable, and 3) data-driven modeling approaches that are largely deterministic ignore the inherent variability in turbulent flows that dictates UAM reliability. 
+Thus, advancements in predictive capabilities are needed to help mitigate the unique operational safety risks that microweather winds pose for smaller, lighter weight UAM aircraft. 
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.larc.nasa.gov/jewarne1/wind-generative-modeling.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.larc.nasa.gov/jewarne1/wind-generative-modeling/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+This work aims to model microweather wind velocities in a manner that is computationally-efficient, captures random variability, and would only require a temporary, rather than permanent, field measurement campaign. 
+Inspired by recent breakthroughs in conditional generative AI such as text-to-image generation, the proposed approach learns a probabilistic macro-to-microweather mapping between regional weather forecasts and measured local wind velocities using generative modeling. 
+A simple proof of concept was implemented using a dataset comprised of local (micro) measurements from a Sonic Detection and Ranging (SoDAR) wind profiler along with (macro) forecast data from a nearby weather station over the same time period. 
+Generative modeling was implemented using both state of the art deep generative models (DGMs), denoising diffusion probabilistic models and flow matching, as well as the well-established Gaussian mixture model (GMM) as a simpler baseline. 
+Using current macroweather forecasted wind speed and direction as input, the results show that the proposed macro-to-microweather conditional generative models can produce statistically consistent wind velocity vs. altitude samples, capturing the random variability in the localized measurement region. 
+While the simpler GMM performs well for unconditional wind velocity sample generation, the DGMs show superior performance for conditional sampling and provide a more capable foundation for scaling to larger scale measurement campaigns with denser spatial/temporal sensor readings.
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Create an environment.
+```
+conda create -n wind python=3.10
+```
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Install packages from conda
+```
+conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+conda install lightning -c conda-forge
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+conda install -c conda-forge notebook
+```
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+Install packages from pip
+```
+pip install matplotlib pandas einops tqdm optuna seaborn gpytorch
+```
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+Install local source
+```
+pip install -e .
+```
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+<!-- ### Running on K Cluster GPU Nodes:
 
-## License
-For open source projects, say how it is licensed.
+**Setting up pytorch virtual environment with Conda**
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+- module purge
+- module load anaconda/3_2022.10
+- conda create --name K_pytorch_env
+- conda activate K_pytorch_env
+- module load cuda/11.8.0
+- conda install --yes --file requirements.txt
+
+**Running (in interactive session)**
+
+- qsub -I -q K5-res-A100-PL -l walltime=12:00:00 -lselect=1:ncpus=4:ngpus=4:mem=20G
+- conda activate K_pytorch_env
+- module load cuda/11.8.0
+- python ...
+
+For more info on using GPUs on the K Cluster, see “Running GPU Jobs” section on https://k-info.larc.nasa.gov/CCFhowto_jobsubmitt.html -->
+
+### Diffusion Model Notes:
+
+- Current diffusion model implementation (with UNet architecture) is based on: https://huggingface.co/blog/annotated-diffusion
+- Flow matching implementation based on: https://github.com/atong01/conditional-flow-matching
+
