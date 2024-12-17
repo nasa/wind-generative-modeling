@@ -1,5 +1,11 @@
 # Wind Diffusion Modeling
 
+This repo contains the code and data used to reproduce the results in the paper:
+```
+T. A. Shah, M. C. Stanley, and J. E. Warner. Generative Modeling of Microweather Wind Velocities for Urban Air Mobility. IEEE Aerospace Conference. 2025.
+```
+
+
 ![](images/2022-04-25.gif)
 
 *An animation of a single day of sodar sensor readings (taken in 2 minute intervals) with their corresponding macroweather forecast.*
