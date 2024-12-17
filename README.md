@@ -103,4 +103,3 @@ Call each script to generate figures from the paper.
 
 - Current diffusion model implementation (with UNet architecture) is based on: https://huggingface.co/blog/annotated-diffusion
 - Flow matching implementation based on: https://github.com/atong01/conditional-flow-matching
-
