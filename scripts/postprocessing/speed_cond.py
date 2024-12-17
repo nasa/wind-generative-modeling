@@ -1,4 +1,4 @@
-from wdm_src.utils import get_vector_cols, ALTITUDES
+from wdm_src.utils import get_vector_cols
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns

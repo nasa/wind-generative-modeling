@@ -1,5 +1,5 @@
 from wdm_src import plots
-from wdm_src.utils import get_vector_cols, ALTITUDES
+from wdm_src.utils import get_vector_cols
 from scipy.stats import gaussian_kde
 import numpy as np
 import pandas as pd

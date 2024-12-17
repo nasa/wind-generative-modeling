@@ -1,4 +1,4 @@
-from wdm_src.utils import get_vector_cols, ALTITUDES
+from wdm_src.utils import get_vector_cols
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -17,25 +17,8 @@ if __name__ == '__main__':
         'scripts/postprocessing/unconditional/ddpm_unconditional.csv')
     fm = pd.read_csv(
         'scripts/postprocessing/unconditional/fm_unconditional.csv')
-
-    # load in each segment of the gmm dataset seperately.
-    # combine into one dataset once the irrelevant columns have been stripped off.
-    gmm_1 = pd.read_csv(
-        'scripts/postprocessing/speed_cond/gmm_generated_data_uv_2.23_6542.csv', index_col=[0])
-    gmm_1['macro_ws_str'] = '(-0.001, 2.235]'
-
-    gmm_2 = pd.read_csv(
-        'scripts/postprocessing/speed_cond/gmm_generated_data_uv_5.36_6542.csv', index_col=[0])
-    gmm_2['macro_ws_str'] = '(2.235, 5.364]'
-
-    gmm_3 = pd.read_csv(
-        'scripts/postprocessing/speed_cond/gmm_generated_data_uv_8.05_6542.csv', index_col=[0])
-    gmm_3['macro_ws_str'] = '(5.364, 8.047]'
-
-    gmm_4 = pd.read_csv(
-        'scripts/postprocessing/speed_cond/gmm_generated_data_uv_15.65_6542.csv', index_col=[0])
-    gmm_4['macro_ws_str'] = '(8.047, 15.646]'
-    gmm = pd.concat([gmm_1, gmm_2, gmm_3, gmm_4], ignore_index=True, axis=0)
+    gmm = pd.read_csv(
+        'scripts/postprocessing/unconditional/gmm_unconditional.csv')
 
     '''
     The following three plots make each cell of Figure 5. in the paper.
