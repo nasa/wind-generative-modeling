@@ -1,0 +1,9 @@
+data/areaA_april2022
+**/__pycache__/
+plots/*
+*.egg-info
+output/*
+lightning_logs
+results/
+*.png
+*.db
