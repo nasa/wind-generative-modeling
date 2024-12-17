@@ -64,8 +64,42 @@ pip install -e .
 
 For more info on using GPUs on the K Cluster, see “Running GPU Jobs” section on https://k-info.larc.nasa.gov/CCFhowto_jobsubmitt.html -->
 
-### Diffusion Model Notes:
+## Training
+
+In order to train the models run the scripts within the `scripts/training` folder.
+
+For example:
+```
+python scripts/training/train_fm_unconditional.py
+```
+
+This will generate a checkpoint folder called `results` which contains all saved models.
+
+## Sampling
+
+Evaluation of each model's sampling capabilities can be done by running the `scripts/sampling` scripts.
+First you must modify the path of the model.
+For example, specify the model you with to sample from:
+
+```
+path = Path('results/fm_unconditional/devices-1_bs-128_lr-0.0001/version_0/checkpoints/epoch=399-step=20800.ckpt')
+```
+
+And then run the file:
+
+```
+python scripts/sampling/sample_fm_unconditional.py
+```
+
+Which will generate a `.csv` file containing the generated samples.
+If a conditional model is used, the corresponding macroweather condition for each sample will be appended as a column.
+
+## Postprocessing
+
+Each `.py` file within the `scripts/processing` folder generates figures demonstrating each model's performance.
+Call each script to generate figures from the paper.
+
+## Model Notes:
 
 - Current diffusion model implementation (with UNet architecture) is based on: https://huggingface.co/blog/annotated-diffusion
 - Flow matching implementation based on: https://github.com/atong01/conditional-flow-matching
-

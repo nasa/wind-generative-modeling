@@ -1,0 +1,1 @@
+from wdm_src.flow_matching.model import FlowMatching
