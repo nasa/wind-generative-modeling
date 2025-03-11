@@ -114,7 +114,7 @@ Call each script to generate figures from the paper.
 
 Copyright © 2025 United States Government as represented by the Administrator of the National Aeronautics and Space Administration. All Rights Reserved.
  
-The NASA UQPCE Software (LAR-20514-1) calls the following third-party software, which is subject to the terms and conditions of its licensor, as applicable at the time of licensing.  The third-party software is not bundled or included with this software but may be available from the licensor.  License hyperlinks are provided here for information purposes only:
+The Generative Modeling of Wind Velocity Measurements Software (LAR-20572-1) calls the following third-party software, which is subject to the terms and conditions of its licensor, as applicable at the time of licensing.  The third-party software is not bundled or included with this software but may be available from the licensor.  License hyperlinks are provided here for information purposes only:
  
 PyTorch
 BSD
