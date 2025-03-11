@@ -1,4 +1,4 @@
-# Wind Diffusion Modeling
+# Wind Generative Modeling
 
 This repo contains the code and data used to reproduce the results in the paper:
 ```
